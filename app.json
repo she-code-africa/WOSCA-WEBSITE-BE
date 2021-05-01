@@ -1,0 +1,6 @@
+{
+  "buildpacks": [],
+  "formation": {},
+  "name": "wosca-backend",
+  "stack": "heroku-18"
+}
