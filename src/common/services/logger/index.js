@@ -1,14 +1,16 @@
 import { createLogger, format, transports } from 'winston';
 
 const {
-  combine, timestamp, label, simple,
+  combine, timestamp, errors, simple, splat, printf,
 } = format;
 
 const logger = createLogger({
   format: combine(
-    label({ label: 'LOGGING', message: true }),
+    errors({ stack: true }),
+    splat(),
     timestamp(),
     simple(),
+    printf((info) => `${info.timestamp} [LOGGING] ${info.level}: ${JSON.stringify(info.message)}`),
   ),
   transports: [new transports.Console()],
 });
