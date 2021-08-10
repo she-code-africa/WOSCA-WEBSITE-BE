@@ -1,21 +1,7 @@
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import env from '../common/config/env';
 import logger from '../common/services/logger';
 
-dotenv.config();
-const env = process.env.NODE_ENV || 'dev';
-
-const environment = {
-  staging: {
-    use_env_variable: 'MONGODB_URL',
-  },
-  test: {
-    use_env_variable: 'TEST_MONGODB_URL',
-  },
-  production: {
-    use_env_variable: 'MONGODB_URL',
-  },
-};
 const options = {
   useUnifiedTopology: true,
   useNewUrlParser: true,
@@ -24,7 +10,16 @@ const options = {
 };
 export const connectToDB = async () => {
   try {
-    await mongoose.connect(process.env[environment[env].use_env_variable], options);
+    const productionOrStagingEnvironment = ['production', 'staging'].includes(
+      env.app_env,
+    );
+    await mongoose.connect(env.mongodb_url, {
+      ...options,
+      ...(productionOrStagingEnvironment && {
+        user: env.mongodb_username,
+        pass: env.mongodb_password,
+      }),
+    });
     return logger.info('Database connected!');
   } catch (err) {
     return logger.warn(err);

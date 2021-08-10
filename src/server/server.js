@@ -1,13 +1,12 @@
 import '@babel/polyfill';
-import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import env from '../common/config/env';
 import logger from '../common/services/logger';
 import router from './routes';
 import { connectToDB, disconnectDB } from './db';
-
-if (process.env.NODE_ENV !== 'production') dotenv.config();
+import { serverErrorResponse } from './utils/responsehandler';
 
 const app = express();
 
@@ -18,16 +17,19 @@ app.use(router);
 app.use(express.json());
 
 process.on('uncaughtException', (err) => {
-  logger.warn(err.stack);
+  logger.warn(err || err.stack);
   process.exit(1);
 });
 (async () => {
   await disconnectDB();
 })();
+
+app.use(serverErrorResponse);
+
 // Handle non existing routes
 app.all('*', (req, res) => res.status(404).json({
   status: 404,
-  error: 'Page not found',
+  error: 'Route does not exist',
 }));
 (async () => {
   try {
@@ -37,7 +39,7 @@ app.all('*', (req, res) => res.status(404).json({
   }
 })();
 
-const server = app.listen(process.env.PORT || 5000, () => {
+const server = app.listen(env.port, () => {
   logger.info(`Listening on port ${server.address().port}`);
 });
 

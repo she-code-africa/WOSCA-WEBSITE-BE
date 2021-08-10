@@ -5,5 +5,10 @@
     "mocha": false,
     "node": true,
     "browser": true
+  },
+  "rules": {
+    "no-param-reassign": 0,
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "warn"
   }
 }
