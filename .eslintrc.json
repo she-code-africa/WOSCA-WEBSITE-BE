@@ -9,6 +9,8 @@
   "rules": {
     "no-param-reassign": 0,
     "no-underscore-dangle": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "import/prefer-default-export": "off",
+    "camelcase": "off"
   }
 }

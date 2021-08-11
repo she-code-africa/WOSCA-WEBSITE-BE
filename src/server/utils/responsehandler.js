@@ -10,23 +10,12 @@ export const errorResponse = (res, req, status, error) => {
   res.status(status).json({
     errors: error,
   });
-  logger.error(
-    error,
-    // res,
-    req.id,
-  );
+  logger.error(`${error}  ${res.statusCode} || ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
 };
 
 export const successResponse = (res, req, status, data) => {
   res.status(status).json({
     data,
   });
-  logger.info({ req });
+  logger.info(`${res.statusCode} || ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
 };
-
-export const serverErrorResponse = (err, req, res, next) => res.status(err.status || 500).json({
-  errors: {
-    message:
-      'Something went wrong, please try again or check back for a fix',
-  },
-});

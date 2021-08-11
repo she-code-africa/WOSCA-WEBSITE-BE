@@ -13,5 +13,10 @@ const env = {
   redis_url: process.env.REDIS_URL,
   salt_rounds: process.env.SALT_ROUNDS || 10,
   jwt_secret: process.env.JWT_SECRET,
+  mailgun_api_key: process.env.MAILGUN_API_KEY,
+  mailgun_domain: process.env.MAILGUN_DOMAIN,
+  sca_email: process.env.SCA_EMAIL,
+  protocol: process.env.PROTOCOL,
+  domain: process.env.DOMAIN,
 };
 export default env;

@@ -1,7 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 import env from '../../common/config/env';
-import { readMapper, uuidv4, trimmedString } from '../utils/schema.utils';
+import {
+  readMapper, uuidv4, trimmedString, timestamps,
+} from '../utils/schema.utils';
 
 const UserSchema = new Schema({
   _id: { ...uuidv4 },
@@ -27,20 +29,16 @@ const UserSchema = new Schema({
 },
 {
   ...readMapper,
+  ...timestamps,
 });
 /**
  * Pre-save hook for hashing passwords the first time a user creates an account.
  * @param next mongoose hook next function
  */
-UserSchema.pre('save', async function save(next) {
-  if (!this.isModified('password')) return next();
-  try {
-    const hash = await bcrypt.hash(this.password, env.salt_rounds);
-    this.password = hash;
-    return next();
-  } catch (err) {
-    return next(err);
-  }
+UserSchema.pre('save', async function hashPassword() {
+  if (!this.isNew || !this.password) return;
+  const hash = await bcrypt.hash(this.password, env.salt_rounds);
+  this.password = hash;
 });
 /**
  * Mongoose document instance method used to check if a plain text
@@ -50,6 +48,15 @@ UserSchema.pre('save', async function save(next) {
 UserSchema.methods.validatePassword = async function validatePassword(plainText) {
   const isValidPassword = await bcrypt.compare(plainText, this.password);
   if (!isValidPassword) { throw new Error('Invalid credentails provided. Please try again.'); }
+};
+
+/**
+ * Mongoose document instance method used for hashing a user's new password.
+ * @param plainText plain text password to be encrypted.
+ */
+UserSchema.methods.updatePassword = async function updatePassword(plainText) {
+  const hash = await bcrypt.hash(plainText, env.salt_rounds);
+  this.password = hash;
 };
 
 const User = mongoose.model('User', UserSchema);
