@@ -4,6 +4,6 @@
   "name": "wosca-backend",
   "stack": "heroku-18",
   "addons": [
-    " heroku-redis:hobby-dev"
+    "heroku-redis:hobby-dev"
   ]
 }
