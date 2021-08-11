@@ -3,8 +3,11 @@
  */
 export const templates = {
   passwordResetRequest: {
-    name: 'pwd_reset_request',
     templateId: 'pwd_reset_request',
     title: 'Reset Password Request',
+  },
+  passwordResetConfirmation: {
+    templateId: 'password_reset_confirmation',
+    title: 'Your password has been reset',
   },
 };

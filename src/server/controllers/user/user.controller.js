@@ -52,7 +52,7 @@ export const forgotPassword = async (req, res, next) => {
     const payload = {
       dynamic_template_data: { link },
       to: user.email,
-      templateId: templates.passwordResetRequest.name,
+      templateId: templates.passwordResetRequest.templateId,
       title: templates.passwordResetRequest.title,
     };
     sendMailGeneric(payload);
@@ -77,7 +77,13 @@ export const resetPasswordConfirmation = async (req, res, next) => {
 
     // Update the last password change cache
     await set(`last-password-change:${user.id}`, Date.now());
-
+    const payload = {
+      dynamic_template_data: {},
+      to: user.email,
+      templateId: templates.passwordResetConfirmation.templateId,
+      title: templates.passwordResetConfirmation.title,
+    };
+    sendMailGeneric(payload);
     return successResponse(res, req, 200, { message: 'Successfully reset password' });
   } catch (error) {
     return next(error);
