@@ -2,5 +2,8 @@
   "buildpacks": [],
   "formation": {},
   "name": "wosca-backend",
-  "stack": "heroku-18"
+  "stack": "heroku-18",
+  "addons": [
+    "heroku-redis:hobby-dev"
+  ]
 }
