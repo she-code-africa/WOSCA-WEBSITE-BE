@@ -47,7 +47,11 @@ UserSchema.pre('save', async function hashPassword() {
  */
 UserSchema.methods.validatePassword = async function validatePassword(plainText) {
   const isValidPassword = await bcrypt.compare(plainText, this.password);
-  if (!isValidPassword) { throw new Error('Invalid credentails provided. Please try again.'); }
+  if (!isValidPassword) {
+    const error = new Error(JSON.stringify({ error: 'Invalid credentails provided. Please try again.' }));
+    error.status = 401;
+    throw error;
+  }
 };
 
 /**
