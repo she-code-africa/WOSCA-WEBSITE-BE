@@ -2,7 +2,7 @@ import { uuid } from 'uuidv4';
 import { SchemaTypes } from 'mongoose';
 
 /**
- * Removes _id field in subdocuments and allows virtual fields to be returned
+ * this removes _id field in subdocuments and allows virtual fields to be returned
  */
 export const readMapper = {
   toJSON: {
@@ -17,7 +17,7 @@ export const readMapper = {
 };
 
 /**
- * Defines timestamps fields in a schema
+ * this defines timestamps fields in a schema
  */
 export const timestamps = {
   timestamps: {
@@ -27,7 +27,7 @@ export const timestamps = {
 };
 
 /**
- * Replaces the default mongoose id with a uuid string
+ * this replaces the default mongoose id with a uuidv4 string
  */
 export const uuidv4 = {
   type: SchemaTypes.String,
@@ -35,7 +35,7 @@ export const uuidv4 = {
 };
 
 /**
- * Defines a schema type with a lowercased trimmed string
+ * this trims a string schema type and changes it to lowercase
  */
 export const trimmedLowercaseString = {
   type: SchemaTypes.String,
@@ -44,7 +44,7 @@ export const trimmedLowercaseString = {
 };
 
 /**
- * Defines a schema type with a trimmed string
+ * this trims a string schema type
  */
 export const trimmedString = {
   type: SchemaTypes.String,
@@ -52,7 +52,7 @@ export const trimmedString = {
 };
 
 /**
- * Defines a schema type with a lowercased string
+ * this changes a string schema type to lowercase
  */
 export const lowercaseString = {
   type: SchemaTypes.String,
