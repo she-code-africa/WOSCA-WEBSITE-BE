@@ -13,7 +13,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(router);
+
+router.get('/', (req, res) => res.status(200).send({ message: 'Welcome to WOSCA site API' }));
+app.use('/api/v1', router);
 app.use(express.json());
 
 process.on('uncaughtException', (err) => {
