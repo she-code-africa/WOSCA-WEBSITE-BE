@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 import { Router } from 'express';
 import {
   createEvent, getEvents, getEvent, updateEvent, deleteEvent,
