@@ -10,8 +10,8 @@ const eventRouter = Router();
 
 eventRouter.get('/', getEvents);
 eventRouter.post('/', validator(createEventValidation), createEvent);
-eventRouter.get('/{id}', getEvent);
-eventRouter.put('/{id}', updateEvent);
-eventRouter.delete('/{id}', deleteEvent);
+eventRouter.get('/:eventId', getEvent);
+eventRouter.put('/:eventId', updateEvent);
+eventRouter.delete('/:eventId', deleteEvent);
 
 export default eventRouter;
