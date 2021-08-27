@@ -18,12 +18,10 @@ const start = async () => {
     app.use(bodyParser.urlencoded({ extended: true }));
 
     // expose index endpoint
-    router.get('/', (req, res) => res.status(200).send({ message: 'Welcome to WOSCA site API' }));
+    app.get('/', (req, res) => res.status(200).send({ message: 'Welcome to WOSCA site API' }));
     app.use('/api/v1', router);
     app.use(express.json());
 
-    app.use(router);
-    app.use(express.json());
     // Handle non existing routes
     app.use((req, res) => {
       res.status(404).send({ message: 'Route not found' });
