@@ -15,7 +15,7 @@ export const createEvent = async (req, res, next) => {
 
 export const getEvents = async (req, res, next) => {
   try {
-    const events = await Event.find();
+    const events = await Event.find({});
     return successResponse(res, req, 200, { message: 'All events', events });
   } catch (error) {
     return next(error);
@@ -24,7 +24,11 @@ export const getEvents = async (req, res, next) => {
 
 export const getEvent = async (req, res, next) => {
   try {
-    const event = await Event.findOne({ _id: req.params.eventId });
+    const { params: { eventId } } = req;
+    const event = await Event.findOne({ _id: eventId });
+    if (event.length === 0) {
+      return errorResponse(res, req, 404, { message: 'Event not found!' });
+    }
     return successResponse(res, req, 200, { message: 'This event', event });
   } catch (error) {
     return next(error);
@@ -33,14 +37,12 @@ export const getEvent = async (req, res, next) => {
 
 export const updateEvent = async (req, res, next) => {
   try {
-    const { body } = req;
-    const { params: { eventId } } = req;
+    const { body, params: { eventId } } = req;
 
     const existingEvent = await Event.findById({ _id: eventId });
     if (!existingEvent) {
-      return errorResponse(res, req, 409, { message: 'Event does not exist' });
+      return errorResponse(res, req, 404, { message: 'Event not found!' });
     }
-
     const event = await Event.findByIdAndUpdate(eventId, { $set: body }, { new: true });
     return successResponse(res, req, 200, { message: 'Event updated successfully', event });
   } catch (error) {
@@ -51,7 +53,10 @@ export const updateEvent = async (req, res, next) => {
 export const deleteEvent = async (req, res, next) => {
   try {
     const { params: { eventId } } = req;
-    await Event.findByIdAndDelete(eventId);
+    const event = await Event.findByIdAndDelete(eventId);
+    if (!event) {
+      return errorResponse(res, req, 404, { message: 'Event not found!' });
+    }
     return successResponse(res, req, 200, { message: 'Event deleted successfully' });
   } catch (error) {
     return next(error);
