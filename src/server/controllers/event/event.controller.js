@@ -15,7 +15,7 @@ export const createEvent = async (req, res, next) => {
 
 export const getEvents = async (req, res, next) => {
   try {
-    const events = await Event.find({});
+    const events = await Event.find();
     return successResponse(res, req, 200, { message: 'All events', events });
   } catch (error) {
     return next(error);
@@ -29,7 +29,7 @@ export const getEvent = async (req, res, next) => {
     if (event.length === 0) {
       return errorResponse(res, req, 404, { message: 'Event not found!' });
     }
-    return successResponse(res, req, 200, { message: 'This event', event });
+    return successResponse(res, req, 200, { message: 'Successfully retrieved event', event });
   } catch (error) {
     return next(error);
   }

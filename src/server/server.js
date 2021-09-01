@@ -4,6 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import env from '../common/config/env';
 import logger from '../common/services/logger';
+// eslint-disable-next-line import/no-named-as-default-member
 import router from './routes';
 import { connectToDB, disconnectDB } from './db';
 
@@ -15,11 +16,11 @@ const start = async () => {
     app.use(cors());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(router);
-    app.use(express.json());
 
     // expose index endpoint
     app.get('/', (req, res) => res.status(200).send({ message: 'Welcome to WOSCA site API' }));
+    app.use('/api/v1', router);
+    app.use(express.json());
 
     // Handle non existing routes
     app.use((req, res) => {
