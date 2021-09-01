@@ -11,6 +11,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     ...trimmedString,
+    unique: true,
   },
   email: {
     type: String,
@@ -24,7 +25,6 @@ const UserSchema = new Schema({
   role: {
     type: String,
     enum: ['regular', 'admin'],
-    default: 'regular',
   },
 },
 {
