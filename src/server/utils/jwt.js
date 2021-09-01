@@ -17,3 +17,15 @@ export const sign = (payload) => new Promise((resolve, reject) => {
     },
   );
 });
+
+/**
+ * Decodes a JWT Token and returns the  payload
+ * @param token
+ */
+
+export const decode = (token) => new Promise((resolve, reject) => {
+  jwt.verify(token, env.jwt_secret, (err, decoded) => {
+    if (err) reject(err);
+    resolve(decoded);
+  });
+});
