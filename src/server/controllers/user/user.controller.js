@@ -76,7 +76,7 @@ export const resetPasswordConfirmation = async (req, res, next) => {
     await user.save();
 
     // Update the last password change cache
-    await set(`last-password-change:${user.id}`, Date.now());
+    await set(`last-password-reset:${user.id}`, Date.now());
     const payload = {
       dynamic_template_data: {},
       to: user.email,
