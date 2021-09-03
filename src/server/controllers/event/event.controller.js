@@ -26,7 +26,7 @@ export const getEvent = async (req, res, next) => {
   try {
     const { params: { eventId } } = req;
     const event = await Event.findOne({ _id: eventId });
-    if (event.length === 0) {
+    if (!event) {
       return errorResponse(res, req, 404, { message: 'Event not found!' });
     }
     return successResponse(res, req, 200, { message: 'Successfully retrieved event', event });
