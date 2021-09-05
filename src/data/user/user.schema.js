@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 import env from '../../common/config/env';
 import {
-  readMapper, uuidv4, trimmedString, timestamps,
+  readMapper, uuidv4, trimmedLowercaseString, timestamps,
 } from '../utils/schema.utils';
 
 const UserSchema = new Schema({
@@ -10,7 +10,7 @@ const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
-    ...trimmedString,
+    ...trimmedLowercaseString,
     unique: true,
   },
   email: {
@@ -24,7 +24,8 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['regular', 'admin'],
+    enum: ['user', 'admin'],
+    default: 'user',
   },
 },
 {
