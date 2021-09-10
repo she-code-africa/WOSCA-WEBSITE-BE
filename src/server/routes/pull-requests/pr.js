@@ -14,6 +14,6 @@ PullRequestsRouter.post('/', AuthMiddleware, rbac('user'), validator(submitPRVal
 PullRequestsRouter.get('/', AuthMiddleware, getPullRequests);
 
 PullRequestsRouter.get('/:prId', AuthMiddleware, getOnePullRequest);
-PullRequestsRouter.put('/prId', AuthMiddleware, rbac('admin'), updatePullRequests);
+PullRequestsRouter.put('/:prId', AuthMiddleware, rbac('admin'), updatePullRequests);
 
 export default PullRequestsRouter;
