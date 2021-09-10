@@ -11,9 +11,9 @@ const PullRequestsRouter = Router();
 
 PullRequestsRouter.post('/', AuthMiddleware, rbac('user'), validator(submitPRValidation), submitPullRequest);
 
-PullRequestsRouter.post('/', AuthMiddleware, getPullRequests);
+PullRequestsRouter.get('/', AuthMiddleware, getPullRequests);
 
-PullRequestsRouter.post('/', AuthMiddleware, getOnePullRequest);
-PullRequestsRouter.post('/', AuthMiddleware, rbac('admin'), updatePullRequests);
+PullRequestsRouter.get('/', AuthMiddleware, getOnePullRequest);
+PullRequestsRouter.put('/', AuthMiddleware, rbac('admin'), updatePullRequests);
 
 export default PullRequestsRouter;
