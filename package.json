@@ -49,6 +49,7 @@
     "lodash": "^4.17.21",
     "mailgun-js": "^0.22.0",
     "mongoose": "^5.12.3",
+    "mongoose-autopopulate": "^0.14.0",
     "mongoose-slug-updater": "^3.3.0",
     "redis": "^3.1.2",
     "uuid": "^8.3.2",

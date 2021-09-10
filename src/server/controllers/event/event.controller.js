@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import Event from '../../../data/event/event.schema';
 import { errorResponse, successResponse } from '../../utils/responsehandler';
 
