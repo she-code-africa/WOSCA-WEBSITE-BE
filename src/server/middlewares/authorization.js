@@ -5,18 +5,29 @@ import { errorResponse } from '../utils/responsehandler';
 export default async function AuthMiddleware(req, res, next) {
   try {
     const authHeader = req.headers.authorization;
-
-    if (!authHeader) throw new Error('Missing Authorization header in request');
+    if (!authHeader) {
+      return errorResponse(res, req, 401, {
+        message: 'Missing Authorization header in request',
+      });
+    }
 
     const token = authHeader.split(' ')[1];
-    if (!token) throw new Error('No token provided in Authorization Header');
+    if (!token) {
+      return errorResponse(res, req, 401, {
+        message: 'No token provided in Authorization Header',
+      });
+    }
 
     const tokenData = await decode(token);
     // Check if the password has be reset since the last time a token was generated
     const lastPasswordChange = await get(
       `last-password-reset:${tokenData.id}`,
     );
-    if (Number(lastPasswordChange) > tokenData.iat) { throw new Error('Invalid token provided in Authorization Header'); }
+    if (Number(lastPasswordChange) > tokenData.iat) {
+      return errorResponse(res, req, 401, {
+        message: 'Invalid token sent in Authorization header',
+      });
+    }
 
     req.user = tokenData;
     next();
