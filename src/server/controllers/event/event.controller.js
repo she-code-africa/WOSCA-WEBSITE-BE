@@ -61,3 +61,24 @@ export const deleteEvent = async (req, res, next) => {
     return next(error);
   }
 };
+
+// implement event search functionality using location, timezone that is start time
+
+export const searchEvent = async (req, res, next) => {
+  try {
+    const { query: { location, startTime } } = req;
+
+    if (location) {
+      const events = await Event.findOne({ location });
+      return successResponse(res, req, 200, { message: 'All events in this location', events });
+    }
+    if (startTime) {
+      const events = await Event.findOne({ startTime });
+      return successResponse(res, req, 200, { message: 'All events at this time', events });
+    }
+
+    return errorResponse(res, req, 400, { message: 'No query parameter passed' });
+  } catch (error) {
+    return next(error);
+  }
+};
