@@ -69,11 +69,11 @@ export const searchEvent = async (req, res, next) => {
     const { query: { location, startTime } } = req;
 
     if (location) {
-      const events = await Event.findOne({ location });
+      const events = await Event.findAll({ location });
       return successResponse(res, req, 200, { message: 'All events', events });
     }
     if (startTime) {
-      const events = await Event.findOne({ startTime });
+      const events = await Event.findAll({ startTime });
       return successResponse(res, req, 200, { message: 'All events', events });
     }
 
