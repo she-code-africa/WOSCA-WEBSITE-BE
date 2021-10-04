@@ -1,4 +1,5 @@
 import PullRequests from '../../../data/pull-requests/pr.schema';
+import User from '../../../data/user/user.schema';
 import { errorResponse, successResponse } from '../../utils/responsehandler';
 
 export const submitPullRequest = async (req, res, next) => {
@@ -14,6 +15,16 @@ export const submitPullRequest = async (req, res, next) => {
 
 export const getPullRequests = async (req, res, next) => {
   try {
+    // get the current login in user
+    const { user: { id } } = req;
+    const user = await User.findById(id);
+
+    if (user.role === 'user') {
+      const pullRequests = await PullRequests.find({ user: id });
+
+      return successResponse(res, req, 200, { message: 'All Pull Requests', pullRequests });
+    }
+
     const pullRequests = await PullRequests.find();
     return successResponse(res, req, 200, { message: 'All Pull Requests', pullRequests });
   } catch (error) {
