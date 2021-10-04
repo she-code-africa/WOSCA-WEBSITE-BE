@@ -89,3 +89,25 @@ export const resetPasswordConfirmation = async (req, res, next) => {
     return next(error);
   }
 };
+
+export const getUsers = async (req, res, next) => {
+  try {
+    const users = await User.find();
+    return successResponse(res, req, 200, { message: 'All users', users });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const getOneUser = async (req, res, next) => {
+  try {
+    const { params: { userId } } = req;
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      return errorResponse(res, req, 404, { message: 'user not found!' });
+    }
+    return successResponse(res, req, 200, { message: 'Successfully retrieved user', user });
+  } catch (error) {
+    return next(error);
+  }
+};
