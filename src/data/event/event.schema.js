@@ -4,6 +4,9 @@ import { uuidv4, trimmedString, timestamps } from '../utils/schema.utils';
 
 const EventSchema = new Schema({
   _id: { ...uuidv4 },
+  event_link: {
+    type: String,
+  },
   name: {
     type: String,
     required: true,

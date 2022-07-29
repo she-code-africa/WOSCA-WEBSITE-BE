@@ -4,7 +4,9 @@ import { errorResponse, successResponse } from '../../utils/responsehandler';
 export const createEvent = async (req, res, next) => {
   try {
     const { body } = req;
-    const event = await Event.create({ ...body });
+    let { location } = req.body;
+    location = location.toLowerCase();
+    const event = await Event.create({ ...body, location });
 
     return successResponse(res, req, 201, { message: 'Event created successfully', event });
   } catch (err) {
