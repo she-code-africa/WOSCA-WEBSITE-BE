@@ -1,9 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
-import env from '../../common/config/env';
+import env from '../common/config/env';
 import {
   readMapper, uuidv4, trimmedLowercaseString, timestamps,
-} from '../utils/schema.utils';
+} from './utils/schema.utils';
 
 const UserSchema = new Schema({
   _id: { ...uuidv4 },
@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     ...trimmedLowercaseString,
-    unique: true,
+    unique: false,
   },
   email: {
     type: String,

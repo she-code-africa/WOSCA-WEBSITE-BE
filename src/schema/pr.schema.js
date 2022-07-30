@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import Autopopulate from 'mongoose-autopopulate';
 import {
   uuidv4, timestamps, trimmedString,
-} from '../utils/schema.utils';
+} from './utils/schema.utils';
 
 const PullRequestSchema = new Schema({
   _id: { ...uuidv4 },

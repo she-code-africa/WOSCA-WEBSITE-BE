@@ -9,7 +9,7 @@ const env = {
   mongodb_username: process.env.MONGODB_USERNAME,
   mongodb_password: process.env.MONGODB_PASSWORD,
   mongodb_name: process.env.MONGODB_NAME,
-  port: Number(process.env.PORT) || 7000,
+  port: Number(process.env.PORT) || 5050,
   redis_url: process.env.REDIS_URL,
   salt_rounds: process.env.SALT_ROUNDS || 10,
   jwt_secret: process.env.JWT_SECRET,

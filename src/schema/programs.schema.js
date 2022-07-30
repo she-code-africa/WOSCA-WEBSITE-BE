@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import Slug from 'mongoose-slug-updater';
-import { uuidv4, trimmedString, timestamps } from '../utils/schema.utils';
+import { uuidv4, trimmedString, timestamps } from './utils/schema.utils';
 
 const ProgramSchema = new Schema({
   _id: { ...uuidv4 },
