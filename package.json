@@ -29,7 +29,7 @@
     "@babel/preset-env": "^7.13.12",
     "@babel/register": "^7.13.14",
     "babel-watch": "^7.4.1",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.19"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
