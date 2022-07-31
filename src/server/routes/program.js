@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
   createProgram, getPrograms,
-} from '../controllers/program.controller';
+} from '../controllers/programs';
 import AuthMiddleware from '../middlewares/authorization';
 import rbac from '../middlewares/rbac';
 
