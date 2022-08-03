@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
   createEvent, getEvents, getEvent, updateEvent, deleteEvent, searchEvent,
-} from '../controllers/event.controller';
+} from '../controllers/event';
 import AuthMiddleware from '../middlewares/authorization';
 import rbac from '../middlewares/rbac';
 

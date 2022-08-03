@@ -16,11 +16,11 @@ const start = async () => {
     app.use(cors());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(express.json());
 
     // expose index endpoint
     app.get('/', (req, res) => res.status(200).send({ message: 'Welcome to WOSCA site API' }));
     app.use('/api/v1', router);
-    app.use(express.json());
 
     // Handle non existing routes
     app.use((req, res) => {

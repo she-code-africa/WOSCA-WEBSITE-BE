@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
   createUser, signin, forgotPassword, resetPasswordConfirmation,
-} from '../controllers/user.controller';
+} from '../controllers/auth';
 
 const router = Router();
 

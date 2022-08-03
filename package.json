@@ -2,15 +2,11 @@
   "name": "wosca-website-be",
   "version": "1.0.0",
   "description": "WOSCA website backend",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "server": "nodemon --exec babel-node src/server/server.js",
-    "prestart": "npm run build",
-    "start": "node ./dist/server/server.js",
-    "build": "npm run clean && npm run build-server",
-    "build-server": "babel src --out-dir dist --source-maps inline --copy-files",
-    "clean": "rm -rf dist && mkdir dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./build/server/server.js",
+    "build": "rimraf ./build && babel ./src --out-dir ./build/",
+    "server": "nodemon --exec babel-node src/server/server.js"
   },
   "repository": {
     "type": "git",

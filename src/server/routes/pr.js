@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
   submitPullRequest, getOnePullRequest, getPullRequests, updatePullRequests,
-} from '../controllers/pr.controller';
+} from '../controllers/pull-request';
 import AuthMiddleware from '../middlewares/authorization';
 import rbac from '../middlewares/rbac';
 
