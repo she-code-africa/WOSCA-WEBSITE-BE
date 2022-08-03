@@ -11,5 +11,5 @@ router.use('/auth', authRouter);
 router.use('/events', eventRouter);
 router.use('/pulls', PullRequestsRouter);
 router.use('/programs', ProgramRouter);
-router.use('/user', userRouter)
+router.use('/user', userRouter);
 export default router;
