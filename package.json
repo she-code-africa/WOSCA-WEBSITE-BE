@@ -4,7 +4,7 @@
   "description": "WOSCA website backend",
   "main": "server.js",
   "scripts": {
-    "start": "node ./build/server.js",
+    "start": "node ./build/server/server.js",
     "build": "rimraf ./build && babel ./src --out-dir ./build/",
     "server": "nodemon --exec babel-node src/server/server.js"
   },
