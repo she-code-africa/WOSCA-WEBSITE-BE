@@ -33,3 +33,18 @@ export const getPrograms = async (req, res) => {
     return errorResponse(res, error.message, 500, req);
   }
 };
+
+export const updatePrograms = async (req, res) => {
+  try {
+    const { body, params: { programId } } = req;
+
+    const existingProgram = await Program.findById({ _id: programId });
+    if (!existingProgram) {
+      return errorResponse(res, 'Program not found!', 404, req);
+    }
+    const program = await Program.findByIdAndUpdate(programId, { $set: body }, { new: true });
+    return successResponse(res, 200, 'Successfully updated Program', program, req);
+  } catch (error) {
+    return errorResponse(res, error.message, 500, req);
+  }
+};
