@@ -8,7 +8,6 @@ import rbac from '../middlewares/rbac';
 const PullRequestsRouter = Router();
 
 PullRequestsRouter.post('/', AuthMiddleware, rbac('user'), submitPullRequest);
-
 PullRequestsRouter.get('/', AuthMiddleware, getPullRequests);
 
 PullRequestsRouter.get('/:prId', AuthMiddleware, getOnePullRequest);
