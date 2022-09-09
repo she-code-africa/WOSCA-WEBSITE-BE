@@ -18,5 +18,6 @@ const env = {
   sca_email: process.env.SCA_EMAIL,
   protocol: process.env.PROTOCOL,
   domain: process.env.DOMAIN,
+  passwordExpiresIn: process.env.PASSWORD_EXPIRES_IN,
 };
 export default env;

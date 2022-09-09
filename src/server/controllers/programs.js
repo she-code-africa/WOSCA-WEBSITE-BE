@@ -48,3 +48,17 @@ export const updatePrograms = async (req, res) => {
     return errorResponse(res, error.message, 500, req);
   }
 };
+
+export const deletePrograms = async (req, res) => {
+  try {
+    const { params: { programId } } = req;
+
+    const program = await Program.findByIdAndDelete(programId);
+    if (!program) {
+      return errorResponse(res, 'Program not found!', 404, req);
+    }
+    return successResponse(res, 200, 'Successfully deleted Program', program, req);
+  } catch (error) {
+    return errorResponse(res, error.message, 500, req);
+  }
+};
