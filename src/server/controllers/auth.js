@@ -20,7 +20,11 @@ export const createUser = async (req, res) => {
       return errorResponse(res, 'Email already exist', 409, req);
     }
     const user = await User.create({ ...body });
-    const token = await sign({ id: user.id, role: user.role });
+    const token = await sign({
+      id: user.id,
+      role: user.role,
+      email: user.email,
+    });
     return successResponse(res, 201, 'You have successfully created an account', { user, token }, req);
   } catch (error) {
     return errorResponse(res, error.message, 500);
@@ -38,7 +42,11 @@ export const signin = async (req, res) => {
       return errorResponse(res, 'User does not  exist', 404, req);
     }
     await user.validatePassword(password);
-    const token = await sign({ id: user._id, role: user.role });
+    const token = await sign({
+      id: user.id,
+      role: user.role,
+      email: user.email,
+    });
     return successResponse(res, 200, 'You have successfully logged in', { user, token }, req);
   } catch (error) {
     return errorResponse(res, error.message, 500, req);
