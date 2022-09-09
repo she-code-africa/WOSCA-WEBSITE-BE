@@ -5,8 +5,13 @@ export const getAllUsers = async (req, res) => {
   try {
     const { query } = req;
     const data = paginatedOptions(query);
-    const events = await User.aggregate([
+    const users = await User.aggregate([
       { $sort: { created_at: -1 } },
+      {
+        $project: {
+          email: 1, role: 1, username: 1, _id: 1,
+        },
+      },
       {
         $facet: {
           totalCount: [{ $count: 'total' }],
@@ -14,7 +19,7 @@ export const getAllUsers = async (req, res) => {
         },
       },
     ]);
-    return successResponse(res, 200, 'All users', events, req);
+    return successResponse(res, 200, 'All users', users, req);
   } catch (error) {
     return errorResponse(res, error.message, 500, req);
   }
