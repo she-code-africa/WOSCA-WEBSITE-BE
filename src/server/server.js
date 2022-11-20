@@ -25,6 +25,7 @@ const start = async () => {
     // Handle non existing routes
     app.use((req, res) => {
       res.status(404).send({ message: 'Route not found' });
+      logger.info(`${res.statusCode} || ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
     });
     (async () => {
       await disconnectDB();
