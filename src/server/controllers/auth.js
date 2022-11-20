@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import User from '../../schema/user.schema';
-import { errorResponse, successResponse, paginatedOptions } from '../utils/responsehandler';
+import { errorResponse, successResponse } from '../utils/responsehandler';
 import { sign } from '../utils/jwt';
 import { getLink } from '../utils/misc';
 import { templates } from '../../common/services/email/templates';
@@ -106,21 +106,15 @@ export const resetPasswordConfirmation = async (req, res) => {
     return errorResponse(res, error.message, 500, req);
   }
 };
-
-export const getAllUsers = async (req, res) => {
+export const updateUserRole = async (req, res) => {
   try {
-    const { query } = req;
-    const data = paginatedOptions(query);
-    const events = await User.aggregate([
-      { $sort: { created_at: -1 } },
-      {
-        $facet: {
-          totalCount: [{ $count: 'total' }],
-          data,
-        },
-      },
-    ]);
-    return successResponse(res, 200, 'All users', events, req);
+    const { body, params: { userId } } = req;
+    const existingUser = await User.findById({ _id: userId });
+    if (!existingUser) {
+      return errorResponse(res, 'User not found!', 404, req);
+    }
+    const pullRequest = await User.findByIdAndUpdate(userId, { $set: body }, { new: true });
+    return successResponse(res, 200, 'Successfully updated user role', pullRequest, req);
   } catch (error) {
     return errorResponse(res, error.message, 500, req);
   }
