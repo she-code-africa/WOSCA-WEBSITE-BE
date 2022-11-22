@@ -9,7 +9,7 @@ export const getAllUsers = async (req, res) => {
       { $sort: { created_at: -1 } },
       {
         $project: {
-          email: 1, role: 1, username: 1, _id: 1,
+          email: 1, role: 1, username: 1, _id: 1, created_at: 1,
         },
       },
       {
