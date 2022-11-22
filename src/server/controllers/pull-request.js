@@ -78,7 +78,11 @@ export const getPullRequests = async (req, res) => {
           let: { user: '$user' },
           pipeline: [
             { $match: { $expr: { $eq: ['$_id', '$$user'] } } },
-            { $project: { _id: 1, username: 1, email: 1 } },
+            {
+              $project: {
+                _id: 1, username: 1, email: 1, created_at: 1, updated_at: 1,
+              },
+            },
 
           ],
           as: 'user',

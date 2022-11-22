@@ -11,5 +11,5 @@ router.post('/signup', createUser);
 router.post('/signin', signin);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password-confirmation', resetPasswordConfirmation);
-router.patch('/role/:userId', AuthMiddleware, rbac('admin'), updateUserRole);
+router.put('/role/:userId', AuthMiddleware, rbac('admin'), updateUserRole);
 export default router;
