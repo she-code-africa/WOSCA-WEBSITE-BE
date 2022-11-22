@@ -104,3 +104,16 @@ export const getPullRequests = async (req, res) => {
     return errorResponse(res, error.message, 500, req);
   }
 };
+
+export const getPullRequestsPerUser = async (req, res) => {
+  try {
+    const queryResults = await PullRequests.aggregate([
+      { $group: { _id: '$user', pull_requests: { $push: '$$ROOT' }, count: { $sum: 1 } } },
+
+    ]);
+
+    return successResponse(res, 200, 'All Pull Requests', queryResults, req);
+  } catch (error) {
+    return errorResponse(res, error.message, 500, req);
+  }
+};
